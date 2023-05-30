@@ -5,7 +5,7 @@
  */
 package co.edu.uniquindio.dao;
 
-import co.edu.uniquindio.entiti.Encuesta;
+import co.edu.uniquindio.entiti.Factura;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,11 +19,11 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Cristian
  */
-public class EncuestaConsulta {
+public class FacturaConsulta {
 
     private String mensaje = "";
 
-    public String agregarEncuesta(Connection conn, Encuesta enc) {
+    public String agregarFactura(Connection conn, Factura enc) {
         PreparedStatement stmt = null;
 
         String sql = "insert into FACTURAVENTA (ID, FECHAVENTA, TOTALVENTA, VENDEDOR_ID, ESTADO_ID, PAGO_ID, CLIENTE_CEDULA) "
@@ -62,7 +62,7 @@ public class EncuestaConsulta {
         return mensaje;
     }
 
-    public String modificarEncuesta(Connection conn, Encuesta enc) {
+    public String modificarFactura(Connection conn, Factura enc) {
 
         PreparedStatement stmt = null;
 
@@ -103,7 +103,7 @@ public class EncuestaConsulta {
         return mensaje;
     }
 
-    public String eliminarEncuesta(Connection conn, Integer id) {
+    public String eliminarFactura(Connection conn, Integer id) {
         PreparedStatement stmt = null;
 
         String sql = "delete from FACTURAVENTA where ID = ?";
@@ -124,7 +124,7 @@ public class EncuestaConsulta {
         return mensaje;
     }
 
-    public void listarEncuesta(Connection conn, JTable tabla) {
+    public void listarFactura(Connection conn, JTable tabla) {
 
         DefaultTableModel model;
         String[] columnas = {"ID", "FECHAVENTA", "TOTALVENTA", "VENDEDOR_ID", "ESTADO_ID", "PAGO_ID", "CLIENTE_CEDULA"};

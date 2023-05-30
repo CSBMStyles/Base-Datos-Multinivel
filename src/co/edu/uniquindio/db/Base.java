@@ -15,7 +15,7 @@ import java.sql.Statement;
  *
  * @author Cristian
  */
-public class ConexionBase {
+public class Base {
 
     private static Connection conexion = null;
     private static String usuario = "MULTINIVEL_PARCIAL";
@@ -61,7 +61,7 @@ public class ConexionBase {
     }
     
     public static void main(String[] args) {
-        ConexionBase c = new ConexionBase();
+        Base c = new Base();
         
         c.conectar();
     }

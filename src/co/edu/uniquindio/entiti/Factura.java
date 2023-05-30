@@ -7,23 +7,21 @@ package co.edu.uniquindio.entiti;
 
 import java.sql.Date;
 
-
-
 /**
  *
  * @author Cristian
  */
-public class Encuesta {
+public class Factura {
 
     private Integer id;
     private Date fechaVenta;
-    private Double totalVenta;
+    private Double totalVenta; //En la base esta NUMBER, afortunadamente este tipo de dato lo soporta, y si cambio en la base de datos
     private Integer vendedorId;
     private Integer estadoId;
     private Integer pagoId;
     private Integer clienteCedula;
 
-    public Encuesta() {
+    public Factura() {
 
     }
 

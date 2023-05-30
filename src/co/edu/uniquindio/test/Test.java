@@ -5,8 +5,8 @@
  */
 package co.edu.uniquindio.test;
 
-import co.edu.uniquindio.bo.Controlador;
-import co.edu.uniquindio.entiti.Encuesta;
+import co.edu.uniquindio.bo.FacturaControlador;
+import co.edu.uniquindio.entiti.Factura;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
  */
 public class Test {
     
-    Controlador enbo = new Controlador();
-    Encuesta enc = new Encuesta();
+    FacturaControlador enbo = new FacturaControlador();
+    Factura enc = new Factura();
     String mensaje = "";
     
     public void insertar() {
@@ -40,7 +40,7 @@ public class Test {
         
         
         enc.setClienteCedula(25);
-        mensaje = enbo.agregarEncuesta(enc);
+        mensaje = enbo.agregarFactura(enc);
         
         System.out.println(mensaje);
     }
@@ -63,13 +63,13 @@ public class Test {
         
         
         enc.setClienteCedula(25);
-        mensaje = enbo.modificarEncuesta(enc);
+        mensaje = enbo.modificarFactura(enc);
         
         System.out.println(mensaje);
     }
     
     public void eliminar() {
-        mensaje = enbo.eliminarEncuesta(26);
+        mensaje = enbo.eliminarFactura(26);
         
         System.out.println(mensaje);
     }

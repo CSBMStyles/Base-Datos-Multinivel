@@ -5,11 +5,11 @@
  */
 package co.edu.uniquindio.bo;
 
-import co.edu.uniquindio.dao.EncuestaConsulta;
-import co.edu.uniquindio.db.ConexionBase;
+import co.edu.uniquindio.dao.FacturaConsulta;
+import co.edu.uniquindio.db.Base;
 
 
-import co.edu.uniquindio.entiti.Encuesta;
+import co.edu.uniquindio.entiti.Factura;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -21,17 +21,17 @@ import javax.swing.JTable;
  *
  * @author Cristian
  */
-public class Controlador {
+public class FacturaControlador {
     
     private String mensaje = "";
-    private EncuestaConsulta encdao = new EncuestaConsulta();
+    private FacturaConsulta encdao = new FacturaConsulta();
     
-    public String agregarEncuesta(Encuesta enc) {
+    public String agregarFactura(Factura enc) {
 
-        Connection conexion = ConexionBase.conectar();
+        Connection conexion = Base.conectar();
                 
         try {
-            mensaje = encdao.agregarEncuesta(conexion, enc);
+            mensaje = encdao.agregarFactura(conexion, enc);
             //conexion.rollback();
         } catch (Exception e) {
             mensaje = mensaje + " " + e.getMessage();
@@ -48,12 +48,12 @@ public class Controlador {
         return mensaje;
     }
     
-    public String modificarEncuesta(Encuesta enc) {
+    public String modificarFactura(Factura enc) {
        
-        Connection conexion = ConexionBase.conectar();
+        Connection conexion = Base.conectar();
                 
         try {
-            mensaje = encdao.modificarEncuesta(conexion, enc);
+            mensaje = encdao.modificarFactura(conexion, enc);
             //conexion.rollback();
         } catch (Exception e) {
             mensaje = mensaje + " " + e.getMessage();
@@ -70,11 +70,11 @@ public class Controlador {
         return mensaje;
     }
     
-    public String eliminarEncuesta(Integer id) {
-        Connection conexion = ConexionBase.conectar();
+    public String eliminarFactura(Integer id) {
+        Connection conexion = Base.conectar();
                 
         try {
-            mensaje = encdao.eliminarEncuesta(conexion, id);
+            mensaje = encdao.eliminarFactura(conexion, id);
             //conexion.rollback();
         } catch (Exception e) {
             mensaje = mensaje + " " + e.getMessage();
@@ -91,10 +91,10 @@ public class Controlador {
         return mensaje;
     }
     
-    public void listarEncuesta(JTable tabla) {
-         Connection conexion = ConexionBase.conectar();
+    public void listarFactura(JTable tabla) {
+         Connection conexion = Base.conectar();
         
-        encdao.listarEncuesta(conexion, tabla);
+        encdao.listarFactura(conexion, tabla);
         
         try {
             conexion.close();
@@ -104,7 +104,7 @@ public class Controlador {
     }
     
     public Integer getMaximoId () {
-        Connection conexion = ConexionBase.conectar();
+        Connection conexion = Base.conectar();
         
         int id = encdao.getIdMaximo(conexion);
         

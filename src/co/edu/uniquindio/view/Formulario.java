@@ -5,8 +5,8 @@
  */
 package co.edu.uniquindio.view;
 
-import co.edu.uniquindio.bo.Controlador;
-import co.edu.uniquindio.entiti.Encuesta;
+import co.edu.uniquindio.bo.FacturaControlador;
+import co.edu.uniquindio.entiti.Factura;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -28,10 +28,10 @@ public class Formulario extends javax.swing.JFrame {
         bloquearComponentes();
     }
     
-    private Controlador encbo = new Controlador();
+    private FacturaControlador encbo = new FacturaControlador();
     
     public void listarFactura() {
-        encbo.listarEncuesta(tbFactura);
+        encbo.listarFactura(tbFactura);
     }
     
     public void idMax(){
@@ -279,7 +279,7 @@ public class Formulario extends javax.swing.JFrame {
                 tipo = 1;
             }
             
-            Encuesta enc = new Encuesta();
+            Factura enc = new Factura();
            
              LocalDate fechaLocal = LocalDate.now();
              java.sql.Date fecha = java.sql.Date.valueOf(fechaLocal);
@@ -307,7 +307,7 @@ public class Formulario extends javax.swing.JFrame {
             }
             
             enc.setClienteCedula(Integer.parseInt(txtClienteFactura.getText()));
-            String mensaje = encbo.agregarEncuesta(enc);
+            String mensaje = encbo.agregarFactura(enc);
             
             JOptionPane.showMessageDialog(null, mensaje);
             
@@ -327,7 +327,7 @@ public class Formulario extends javax.swing.JFrame {
                 tipo = 1;
             }
             
-            Encuesta enc = new Encuesta();
+            Factura enc = new Factura();
 
              LocalDate fechaLocal = LocalDate.now();
              java.sql.Date fecha = java.sql.Date.valueOf(fechaLocal);
@@ -355,7 +355,7 @@ public class Formulario extends javax.swing.JFrame {
             }
             
             enc.setClienteCedula(Integer.parseInt(txtClienteFactura.getText()));
-            String mensaje = encbo.modificarEncuesta(enc);
+            String mensaje = encbo.modificarFactura(enc);
             
             JOptionPane.showMessageDialog(null, mensaje);
             
@@ -386,8 +386,8 @@ public class Formulario extends javax.swing.JFrame {
         if (txtIdFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty() ) {
             JOptionPane.showMessageDialog(null, "Llene los datos");
         } else {
-            Encuesta enc = new Encuesta();
-            String mensaje = encbo.eliminarEncuesta(Integer.parseInt(txtIdFactura.getText()));
+            Factura enc = new Factura();
+            String mensaje = encbo.eliminarFactura(Integer.parseInt(txtIdFactura.getText()));
             
             JOptionPane.showMessageDialog(null, mensaje);
             
