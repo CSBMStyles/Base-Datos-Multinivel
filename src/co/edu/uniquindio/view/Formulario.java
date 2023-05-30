@@ -9,6 +9,7 @@ import co.edu.uniquindio.bo.Controlador;
 import co.edu.uniquindio.entiti.Encuesta;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -24,6 +25,7 @@ public class Formulario extends javax.swing.JFrame {
     public Formulario() {
         initComponents();
         listarFactura();
+        bloquearComponentes();
     }
     
     private Controlador encbo = new Controlador();
@@ -114,6 +116,11 @@ public class Formulario extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         txtFechaFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        txtFechaFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaFacturaActionPerformed(evt);
+            }
+        });
         jPanel1.add(txtFechaFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 300, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
@@ -262,7 +269,7 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFinalizarFacturaActionPerformed
 
     private void btnAgregarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarFacturaActionPerformed
-        if (txtIdFactura.getText().isEmpty() || txtFechaFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty() ){
+        if (txtIdFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty() ){
             JOptionPane.showMessageDialog(null, "Llene los datos");
         } else {
             Integer tipo;
@@ -274,19 +281,31 @@ public class Formulario extends javax.swing.JFrame {
             
             Encuesta enc = new Encuesta();
            
-            SimpleDateFormat fechaFormato = new SimpleDateFormat("dd-mm-yy");
+             LocalDate fechaLocal = LocalDate.now();
+             java.sql.Date fecha = java.sql.Date.valueOf(fechaLocal);
+            
+            //SimpleDateFormat fechaFormato = new SimpleDateFormat("dd-mm-yy");
             
             enc.setId(Integer.parseInt(txtIdFactura.getText()));
             
-             try {
-            enc.setFechaVenta((java.sql.Date) fechaFormato.parse(txtFechaFactura.getText()));
-             } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Error al convertir la fecha: " + e.getMessage());
+            enc.setFechaVenta(fecha);
+            if (txtTotalFactura.getText().isEmpty()) {
+                Double total = null;
+                 enc.setTotalVenta(total);
+            } else {
+                 enc.setTotalVenta(Double.parseDouble(txtTotalFactura.getText()));
             }
-            enc.setTotalVenta(Double.parseDouble(txtTotalFactura.getText()));
+           
             enc.setVendedorId(Integer.parseInt(txtVendedorFactura.getText()));
             enc.setEstadoId(tipo);
-            enc.setPagoId(Integer.parseInt(txtPagoFactura.getText()));
+            
+            if (txtPagoFactura.getText().isEmpty()) {
+                Integer pago = null;
+                enc.setPagoId(pago);
+            }else {
+                enc.setPagoId(Integer.parseInt(txtPagoFactura.getText()));
+            }
+            
             enc.setClienteCedula(Integer.parseInt(txtClienteFactura.getText()));
             String mensaje = encbo.agregarEncuesta(enc);
             
@@ -298,7 +317,7 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarFacturaActionPerformed
 
     private void btnModificarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFacturaActionPerformed
-        if (txtIdFactura.getText().isEmpty() || txtFechaFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty() ) {
+        if (txtIdFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty() ) {
             JOptionPane.showMessageDialog(null, "Llene los datos");
         } else {
             Integer tipo;
@@ -310,19 +329,31 @@ public class Formulario extends javax.swing.JFrame {
             
             Encuesta enc = new Encuesta();
 
-            SimpleDateFormat fechaFormato = new SimpleDateFormat("dd-mm-yy");
+             LocalDate fechaLocal = LocalDate.now();
+             java.sql.Date fecha = java.sql.Date.valueOf(fechaLocal);
+            
+            //SimpleDateFormat fechaFormato = new SimpleDateFormat("dd-mm-yy");
             
             enc.setId(Integer.parseInt(txtIdFactura.getText()));
             
-             try {
-            enc.setFechaVenta((java.sql.Date) fechaFormato.parse(txtFechaFactura.getText()));
-             } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Error al convertir la fecha: " + e.getMessage());
+             enc.setFechaVenta(fecha);
+            if (txtTotalFactura.getText().isEmpty()) {
+                Double total = null;
+                 enc.setTotalVenta(total);
+            } else {
+                 enc.setTotalVenta(Double.parseDouble(txtTotalFactura.getText()));
             }
-           // enc.setTotalVenta(Double.parseDouble(txtTotalFactura.getText()));
+           
             enc.setVendedorId(Integer.parseInt(txtVendedorFactura.getText()));
             enc.setEstadoId(tipo);
-           // enc.setPagoId(Integer.parseInt(txtPagoFactura.getText()));
+            
+            if (txtPagoFactura.getText().isEmpty()) {
+                Integer pago = null;
+                enc.setPagoId(pago);
+            }else {
+                enc.setPagoId(Integer.parseInt(txtPagoFactura.getText()));
+            }
+            
             enc.setClienteCedula(Integer.parseInt(txtClienteFactura.getText()));
             String mensaje = encbo.modificarEncuesta(enc);
             
@@ -347,8 +378,12 @@ public class Formulario extends javax.swing.JFrame {
        groupTipo.clearSelection();
     }
     
+    public void bloquearComponentes(){
+        txtFechaFactura.setEnabled(false);
+    }
+    
     private void btnEliminarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFacturaActionPerformed
-        if (txtIdFactura.getText().isEmpty() || txtFechaFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty() ) {
+        if (txtIdFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty() ) {
             JOptionPane.showMessageDialog(null, "Llene los datos");
         } else {
             Encuesta enc = new Encuesta();
@@ -362,10 +397,15 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarFacturaActionPerformed
 
     private void tbFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFacturaMouseClicked
-        int seleccion = tbFactura.rowAtPoint(evt.getPoint());
+       int seleccion = tbFactura.rowAtPoint(evt.getPoint());
        txtIdFactura.setText(tbFactura.getValueAt(seleccion, 0) + "");
        txtFechaFactura.setText(tbFactura.getValueAt(seleccion, 1) + "");
-       txtTotalFactura.setText(tbFactura.getValueAt(seleccion, 2) + "");
+        if ((tbFactura.getValueAt(seleccion, 2) + "").equals("null")) {
+            txtTotalFactura.setText("");
+        }else {
+            txtTotalFactura.setText(tbFactura.getValueAt(seleccion, 2) + "");
+        }
+       
        txtVendedorFactura.setText(tbFactura.getValueAt(seleccion, 3) + "");
        String tipo = tbFactura.getValueAt(seleccion, 4) + "";
         if (tipo.equals("2")) {
@@ -373,7 +413,13 @@ public class Formulario extends javax.swing.JFrame {
         }else if (tipo.equals("1")) {
             rdActivoFactura.setSelected(true);
         }
-       txtPagoFactura.setText(tbFactura.getValueAt(seleccion, 5) + "");
+        
+        if ((tbFactura.getValueAt(seleccion, 5) + "").equals("null")) {
+            txtPagoFactura.setText("");
+        } else {
+            txtPagoFactura.setText(tbFactura.getValueAt(seleccion, 5) + "");
+        }
+       
        txtClienteFactura.setText(tbFactura.getValueAt(seleccion, 6) + "");
     }//GEN-LAST:event_tbFacturaMouseClicked
 
@@ -388,6 +434,10 @@ public class Formulario extends javax.swing.JFrame {
     private void rdActivoFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdActivoFacturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdActivoFacturaActionPerformed
+
+    private void txtFechaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaFacturaActionPerformed
+       // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaFacturaActionPerformed
 
     /**
      * @param args the command line arguments

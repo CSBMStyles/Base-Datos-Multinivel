@@ -28,16 +28,16 @@ public class Test {
         enc.setId(26);
         enc.setFechaVenta(fecha);
         Double total = null;
-        if (total != null) {
+        
             enc.setTotalVenta(total);
-        }
+        
         
         enc.setVendedorId(15);
         enc.setEstadoId(1);
         Integer pago = null;
-        if (pago != null) {
+        
             enc.setPagoId(pago);
-        }
+        
         
         enc.setClienteCedula(25);
         mensaje = enbo.agregarEncuesta(enc);
@@ -46,19 +46,30 @@ public class Test {
     }
     
     public void modificar() {
-        enc.setId(111);
-        enc.setNombre("Nuevo nombre para encuesta");
-        //enc.setObjetivo("Objetivo");
-        //enc.setTipoId(101);
-        //enc.setDescripcion("Descripcion");
-        //enc.setCodigo("Codigo");
+        LocalDate fechaLocal = LocalDate.now();
+        Date fecha = Date.valueOf(fechaLocal);
+        enc.setId(26);
+        enc.setFechaVenta(fecha);
+        Double total = null;
+        
+            enc.setTotalVenta(total);
+        
+        
+        enc.setVendedorId(14);
+        enc.setEstadoId(2);
+        Integer pago = null;
+        
+            enc.setPagoId(pago);
+        
+        
+        enc.setClienteCedula(25);
         mensaje = enbo.modificarEncuesta(enc);
         
         System.out.println(mensaje);
     }
     
     public void eliminar() {
-        mensaje = enbo.eliminarEncuesta(111);
+        mensaje = enbo.eliminarEncuesta(26);
         
         System.out.println(mensaje);
     }
@@ -66,7 +77,7 @@ public class Test {
     public static void main(String[] args) {
         Test test = new Test();
         
-        test.insertar();
+        //test.insertar();
         //test.modificar();
         //test.eliminar();
     }

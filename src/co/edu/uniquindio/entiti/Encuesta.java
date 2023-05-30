@@ -7,6 +7,8 @@ package co.edu.uniquindio.entiti;
 
 import java.sql.Date;
 
+
+
 /**
  *
  * @author Cristian

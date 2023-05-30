@@ -27,62 +27,78 @@ public class EncuestaConsulta {
         PreparedStatement stmt = null;
 
         String sql = "insert into FACTURAVENTA (ID, FECHAVENTA, TOTALVENTA, VENDEDOR_ID, ESTADO_ID, PAGO_ID, CLIENTE_CEDULA) "
-                        + "values (?, ?, ?, ?, ?, ?, ?)";
+                + "values (?, ?, ?, ?, ?, ?, ?)";
 
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, enc.getId());
             stmt.setDate(2, enc.getFechaVenta());
-            stmt.setDate(3, null);
-            if (enc.getTotalVenta() != null) {
-               stmt.setDouble(3, enc.getTotalVenta()); 
-            }
             
+            if (enc.getTotalVenta() != null) {
+                stmt.setDouble(3, enc.getTotalVenta());
+            } else {
+                stmt.setNull(3, java.sql.Types.DOUBLE);
+            }
+
             stmt.setInt(4, enc.getVendedorId());
             stmt.setInt(5, enc.getEstadoId());
-            stmt.setDate(6, null);
+            
             if (enc.getPagoId() != null) {
-            stmt.setInt(6, enc.getPagoId());
+                stmt.setInt(6, enc.getPagoId());
+            } else {
+                stmt.setNull(6, java.sql.Types.INTEGER);
             }
-            
+
             stmt.setInt(7, enc.getClienteCedula());
-            
+
             mensaje = "Guardado correctamente";
-            
-             stmt.execute();
-             stmt.close();
+
+            stmt.execute();
+            stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mensaje = "No se pudo guardar: " + e ;
+            mensaje = "No se pudo guardar: " + e;
         }
         return mensaje;
     }
 
     public String modificarEncuesta(Connection conn, Encuesta enc) {
-        
+
         PreparedStatement stmt = null;
 
         String sql = "update FACTURAVENTA set ID = ?, FECHAVENTA = ?, TOTALVENTA = ?, VENDEDOR_ID = ?, ESTADO_ID = ?, PAGO_ID = ?, CLIENTE_CEDULA = ? "
-                        + "where ID = ?";
+                + "where ID = ?";
 
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, enc.getId());
             stmt.setDate(2, (Date) enc.getFechaVenta());
-            stmt.setDouble(3, enc.getTotalVenta());
+            
+            if (enc.getTotalVenta() != null) {
+                stmt.setDouble(3, enc.getTotalVenta());
+            } else {
+                stmt.setNull(3, java.sql.Types.DOUBLE);
+            }
+            
             stmt.setInt(4, enc.getVendedorId());
             stmt.setInt(5, enc.getEstadoId());
-            stmt.setInt(6, enc.getPagoId());
+            
+            if (enc.getPagoId() != null) {
+                stmt.setInt(6, enc.getPagoId());
+            } else {
+                stmt.setNull(6, java.sql.Types.INTEGER);
+            }
+            
             stmt.setInt(7, enc.getClienteCedula());
             stmt.setInt(8, enc.getId());
-                    
+
             mensaje = "Modificado correctamente";
-            
-             stmt.execute();
-             stmt.close();
+
+            stmt.execute();
+            stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mensaje = "No se pudo modificar: " + e ;
+            mensaje = "No se pudo modificar: " + e;
         }
         return mensaje;
     }
@@ -95,38 +111,38 @@ public class EncuestaConsulta {
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
-                    
+
             mensaje = "Eliminado correctamente";
-            
-             stmt.execute();
-             stmt.close();
+
+            stmt.execute();
+            stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mensaje = "No se pudo eliminar: " + e ;
+            mensaje = "No se pudo eliminar: " + e;
         }
-        
+
         return mensaje;
     }
 
     public void listarEncuesta(Connection conn, JTable tabla) {
 
         DefaultTableModel model;
-        String [] columnas = {"ID", "FECHAVENTA", "TOTALVENTA", "VENDEDOR_ID", "ESTADO_ID", "PAGO_ID", "CLIENTE_CEDULA"};
-        
+        String[] columnas = {"ID", "FECHAVENTA", "TOTALVENTA", "VENDEDOR_ID", "ESTADO_ID", "PAGO_ID", "CLIENTE_CEDULA"};
+
         model = new DefaultTableModel(null, columnas);
-        
-       String sql = "select * from FACTURAVENTA";
-       
-       String [] filas = new String [7];
-       Statement st = null;
-       ResultSet rs = null;
-       
+
+        String sql = "select * from FACTURAVENTA";
+
+        String[] filas = new String[7];
+        Statement st = null;
+        ResultSet rs = null;
+
         try {
             st = conn.createStatement();
             rs = st.executeQuery(sql);
             while (rs.next()) {
                 for (int i = 0; i < 7; i++) {
-                    filas[i] = rs.getString(i+1);
+                    filas[i] = rs.getString(i + 1);
                 }
                 model.addRow(filas);
             }
@@ -135,15 +151,15 @@ public class EncuestaConsulta {
             e.printStackTrace();
         }
     }
-    
+
     public Integer getIdMaximo(Connection con) {
-        
+
         int id = 0;
-        
+
         PreparedStatement pst = null;
         ResultSet rs = null;
         String sql = "select max(ID) from FACTURAVENTA";
-        
+
         try {
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery();
