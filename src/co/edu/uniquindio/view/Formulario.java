@@ -6,6 +6,7 @@
 package co.edu.uniquindio.view;
 
 import co.edu.uniquindio.bo.FacturaControlador;
+import co.edu.uniquindio.bo.ProductoControlador;
 import co.edu.uniquindio.entiti.Factura;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,13 +26,20 @@ public class Formulario extends javax.swing.JFrame {
     public Formulario() {
         initComponents();
         listarFactura();
+        listarProductosAsignar();
         bloquearComponentes();
     }
     
     private FacturaControlador encbo = new FacturaControlador();
     
+    private ProductoControlador probo = new ProductoControlador();
+    
     public void listarFactura() {
         encbo.listarFactura(tbFactura);
+    }
+    
+    public void listarProductosAsignar() {
+        probo.listarProducto(tbProductoAsignarProducto);
     }
     
     public void idMax(){
@@ -48,6 +56,7 @@ public class Formulario extends javax.swing.JFrame {
     private void initComponents() {
 
         groupTipo = new javax.swing.ButtonGroup();
+        groupProductoAsignar = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -78,8 +87,39 @@ public class Formulario extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtVendedorFactura = new javax.swing.JTextField();
         txtPagoFactura = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        txtIdAsignarProducto = new javax.swing.JTextField();
+        txtNombreAsignarProducto = new javax.swing.JTextField();
+        txtPrecioVentaAsignarProducto = new javax.swing.JTextField();
+        txtCategoriaAsignarProducto = new javax.swing.JTextField();
+        txtPromocionAsignarProducto = new javax.swing.JTextField();
+        txtFacturaAsignarProducto = new javax.swing.JTextField();
+        rdDisponibleAsignarProducto = new javax.swing.JRadioButton();
+        rdNoDisponibleAsignarProducto = new javax.swing.JRadioButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbDetalleAsignarProducto = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbProductoAsignarProducto = new javax.swing.JTable();
+        jLabel22 = new javax.swing.JLabel();
+        txtBuscarAsignarProducto = new javax.swing.JTextField();
+        btnBuscarAsignarProducto = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        txtCantidadAsignarProducto = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        txtSubtotalAsignarProducto = new javax.swing.JTextField();
+        btnLimpiarAsignarProducto = new javax.swing.JButton();
+        btnAsignarProducto = new javax.swing.JButton();
+        btnBorrarAsignarProducto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -106,14 +146,14 @@ public class Formulario extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         jLabel2.setText("ID:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         txtIdFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jPanel1.add(txtIdFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 300, -1));
+        jPanel1.add(txtIdFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 300, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         jLabel3.setText("Fecha:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
         txtFechaFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         txtFechaFactura.addActionListener(new java.awt.event.ActionListener() {
@@ -121,32 +161,32 @@ public class Formulario extends javax.swing.JFrame {
                 txtFechaFacturaActionPerformed(evt);
             }
         });
-        jPanel1.add(txtFechaFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 300, -1));
+        jPanel1.add(txtFechaFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 300, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         jLabel4.setText("Total:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         jLabel5.setText("Estado:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         jLabel6.setText("Pago:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
 
         txtClienteFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jPanel1.add(txtClienteFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 300, -1));
+        jPanel1.add(txtClienteFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, 300, -1));
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         jLabel7.setText("Cliente:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, -1, -1));
 
         rdInactivoFactura.setBackground(new java.awt.Color(255, 255, 255));
         groupTipo.add(rdInactivoFactura);
         rdInactivoFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         rdInactivoFactura.setText("Inactivo");
-        jPanel1.add(rdInactivoFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, -1, -1));
+        jPanel1.add(rdInactivoFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, -1, -1));
 
         rdActivoFactura.setBackground(new java.awt.Color(255, 255, 255));
         groupTipo.add(rdActivoFactura);
@@ -157,7 +197,7 @@ public class Formulario extends javax.swing.JFrame {
                 rdActivoFacturaActionPerformed(evt);
             }
         });
-        jPanel1.add(rdActivoFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, -1, -1));
+        jPanel1.add(rdActivoFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, -1, -1));
 
         tbFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         tbFactura.setModel(new javax.swing.table.DefaultTableModel(
@@ -178,7 +218,7 @@ public class Formulario extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tbFactura);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 680, 420));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 700, 330));
 
         btnFinalizarFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         btnFinalizarFactura.setText("Imprimir Factura");
@@ -187,8 +227,9 @@ public class Formulario extends javax.swing.JFrame {
                 btnFinalizarFacturaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnFinalizarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 530, -1, -1));
+        jPanel1.add(btnFinalizarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 520, -1, -1));
 
+        btnAgregarFactura.setBackground(new java.awt.Color(0, 204, 102));
         btnAgregarFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         btnAgregarFactura.setText("Agregar");
         btnAgregarFactura.addActionListener(new java.awt.event.ActionListener() {
@@ -196,8 +237,9 @@ public class Formulario extends javax.swing.JFrame {
                 btnAgregarFacturaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, -1, -1));
+        jPanel1.add(btnAgregarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, -1, -1));
 
+        btnModificarFactura.setBackground(new java.awt.Color(255, 255, 0));
         btnModificarFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         btnModificarFactura.setText("Modificar");
         btnModificarFactura.addActionListener(new java.awt.event.ActionListener() {
@@ -205,8 +247,9 @@ public class Formulario extends javax.swing.JFrame {
                 btnModificarFacturaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 530, -1, -1));
+        jPanel1.add(btnModificarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 520, -1, -1));
 
+        btnLimpiarFactura.setBackground(new java.awt.Color(0, 204, 102));
         btnLimpiarFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         btnLimpiarFactura.setText("Limpiar");
         btnLimpiarFactura.addActionListener(new java.awt.event.ActionListener() {
@@ -214,7 +257,7 @@ public class Formulario extends javax.swing.JFrame {
                 btnLimpiarFacturaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnLimpiarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, -1, -1));
+        jPanel1.add(btnLimpiarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 520, -1, -1));
 
         btnEliminarFactura.setBackground(new java.awt.Color(255, 51, 51));
         btnEliminarFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
@@ -224,7 +267,7 @@ public class Formulario extends javax.swing.JFrame {
                 btnEliminarFacturaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEliminarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 530, -1, -1));
+        jPanel1.add(btnEliminarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 520, -1, -1));
 
         txtTotalFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         txtTotalFactura.addActionListener(new java.awt.event.ActionListener() {
@@ -232,11 +275,11 @@ public class Formulario extends javax.swing.JFrame {
                 txtTotalFacturaActionPerformed(evt);
             }
         });
-        jPanel1.add(txtTotalFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 300, -1));
+        jPanel1.add(txtTotalFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 300, -1));
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         jLabel9.setText("Vendedor:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
         txtVendedorFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         txtVendedorFactura.addActionListener(new java.awt.event.ActionListener() {
@@ -244,15 +287,176 @@ public class Formulario extends javax.swing.JFrame {
                 txtVendedorFacturaActionPerformed(evt);
             }
         });
-        jPanel1.add(txtVendedorFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 300, -1));
+        jPanel1.add(txtVendedorFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 300, -1));
 
         txtPagoFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jPanel1.add(txtPagoFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 300, -1));
+        jPanel1.add(txtPagoFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 300, -1));
 
         jPanel4.add(jPanel1);
 
         jTabbedPane2.addTab("Generar Factura", jPanel4);
-        jTabbedPane2.addTab("Historial Factura", jPanel5);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel10.setText("ASIGNAR PRODUCTOS A LA FACTURA");
+        jPanel5.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel11.setText("ID:");
+        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel12.setText("Nombre:");
+        jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel13.setText("Precio Venta:");
+        jPanel5.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel14.setText("Categoria:");
+        jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel18.setText("Promocion:");
+        jPanel5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+
+        jLabel20.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel20.setText("Estado:");
+        jPanel5.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
+
+        jLabel21.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel21.setText("Factura:");
+        jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
+
+        txtIdAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        txtIdAsignarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdAsignarProductoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(txtIdAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 300, -1));
+
+        txtNombreAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        txtNombreAsignarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreAsignarProductoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(txtNombreAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 300, -1));
+
+        txtPrecioVentaAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel5.add(txtPrecioVentaAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 300, -1));
+
+        txtCategoriaAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel5.add(txtCategoriaAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 300, -1));
+
+        txtPromocionAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel5.add(txtPromocionAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 300, -1));
+
+        txtFacturaAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel5.add(txtFacturaAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 300, -1));
+
+        rdDisponibleAsignarProducto.setBackground(new java.awt.Color(255, 255, 255));
+        groupProductoAsignar.add(rdDisponibleAsignarProducto);
+        rdDisponibleAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        rdDisponibleAsignarProducto.setText("Disponible");
+        jPanel5.add(rdDisponibleAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, -1, -1));
+
+        rdNoDisponibleAsignarProducto.setBackground(new java.awt.Color(255, 255, 255));
+        groupProductoAsignar.add(rdNoDisponibleAsignarProducto);
+        rdNoDisponibleAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        rdNoDisponibleAsignarProducto.setText("No Disponible");
+        jPanel5.add(rdNoDisponibleAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, -1, -1));
+
+        tbDetalleAsignarProducto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(tbDetalleAsignarProducto);
+
+        jPanel5.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, 60, 670, 240));
+
+        tbProductoAsignarProducto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbProductoAsignarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbProductoMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tbProductoAsignarProducto);
+
+        jPanel5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 670, 260));
+
+        jLabel22.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel22.setText("Buscar:");
+        jPanel5.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
+
+        txtBuscarAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
+        jPanel5.add(txtBuscarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 300, -1));
+
+        btnBuscarAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        btnBuscarAsignarProducto.setText("Buscar");
+        jPanel5.add(btnBuscarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 20, -1, -1));
+
+        jLabel23.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel23.setText("Cantidad:");
+        jPanel5.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+
+        txtCantidadAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel5.add(txtCantidadAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, 300, -1));
+
+        jLabel24.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel24.setText("Subtotal:");
+        jPanel5.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, -1, -1));
+
+        txtSubtotalAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel5.add(txtSubtotalAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, 300, -1));
+
+        btnLimpiarAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        btnLimpiarAsignarProducto.setText("Limpiar");
+        btnLimpiarAsignarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarAsignarProductoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnLimpiarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, -1, -1));
+
+        btnAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        btnAsignarProducto.setText("Asignar");
+        jPanel5.add(btnAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, -1, -1));
+
+        btnBorrarAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        btnBorrarAsignarProducto.setText("Borrar");
+        jPanel5.add(btnBorrarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 530, -1, -1));
+
+        jScrollPane1.setViewportView(jPanel5);
+
+        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 590));
+
         jTabbedPane2.addTab("Asignar Productos", jPanel6);
 
         jPanel2.add(jTabbedPane2);
@@ -380,6 +584,14 @@ public class Formulario extends javax.swing.JFrame {
     
     public void bloquearComponentes(){
         txtFechaFactura.setEnabled(false);
+        txtIdAsignarProducto.setEnabled(false);
+        txtNombreAsignarProducto.setEnabled(false);
+        txtPrecioVentaAsignarProducto.setEnabled(false);
+        txtCategoriaAsignarProducto.setEnabled(false);
+        txtPromocionAsignarProducto.setEnabled(false);
+        rdDisponibleAsignarProducto.setEnabled(false);
+        rdNoDisponibleAsignarProducto.setEnabled(false);
+        txtSubtotalAsignarProducto.setEnabled(false);
     }
     
     private void btnEliminarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFacturaActionPerformed
@@ -439,6 +651,43 @@ public class Formulario extends javax.swing.JFrame {
        // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaFacturaActionPerformed
 
+    private void txtIdAsignarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdAsignarProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdAsignarProductoActionPerformed
+
+    private void txtNombreAsignarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreAsignarProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreAsignarProductoActionPerformed
+
+    private void btnLimpiarAsignarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarAsignarProductoActionPerformed
+        txtIdAsignarProducto.setText("");
+        txtNombreAsignarProducto.setText("");
+        txtPrecioVentaAsignarProducto.setText("");
+        txtCategoriaAsignarProducto.setText("");
+        txtPromocionAsignarProducto.setText("");
+        rdDisponibleAsignarProducto.setText("");
+        rdNoDisponibleAsignarProducto.setText("");
+        txtFacturaAsignarProducto.setText("");
+        txtCantidadAsignarProducto.setText("");
+        txtSubtotalAsignarProducto.setText("");
+    }//GEN-LAST:event_btnLimpiarAsignarProductoActionPerformed
+
+    private void tbProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductoMouseClicked
+       int seleccion = tbProductoAsignarProducto.rowAtPoint(evt.getPoint());
+       txtIdAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 0) + "");
+       txtNombreAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 1) + "");
+       txtPrecioVentaAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 2) + "");
+       txtCategoriaAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 3) + "");
+       txtPromocionAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 4) + "");
+               
+        String tipo = tbProductoAsignarProducto.getValueAt(seleccion, 5) + "";
+        if (tipo.equals("2")) {
+            rdNoDisponibleAsignarProducto.setSelected(true);
+        }else if (tipo.equals("1")) {
+            rdDisponibleAsignarProducto.setSelected(true);
+        } 
+    }//GEN-LAST:event_tbProductoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -477,13 +726,29 @@ public class Formulario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarFactura;
+    private javax.swing.JButton btnAsignarProducto;
+    private javax.swing.JButton btnBorrarAsignarProducto;
+    private javax.swing.JButton btnBuscarAsignarProducto;
     private javax.swing.JButton btnEliminarFactura;
     private javax.swing.JButton btnFinalizarFactura;
+    private javax.swing.JButton btnLimpiarAsignarProducto;
     private javax.swing.JButton btnLimpiarFactura;
     private javax.swing.JButton btnModificarFactura;
+    private javax.swing.ButtonGroup groupProductoAsignar;
     private javax.swing.ButtonGroup groupTipo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -497,16 +762,32 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JRadioButton rdActivoFactura;
+    private javax.swing.JRadioButton rdDisponibleAsignarProducto;
     private javax.swing.JRadioButton rdInactivoFactura;
+    private javax.swing.JRadioButton rdNoDisponibleAsignarProducto;
+    private javax.swing.JTable tbDetalleAsignarProducto;
     private javax.swing.JTable tbFactura;
+    private javax.swing.JTable tbProductoAsignarProducto;
+    private javax.swing.JTextField txtBuscarAsignarProducto;
+    private javax.swing.JTextField txtCantidadAsignarProducto;
+    private javax.swing.JTextField txtCategoriaAsignarProducto;
     private javax.swing.JTextField txtClienteFactura;
+    private javax.swing.JTextField txtFacturaAsignarProducto;
     private javax.swing.JTextField txtFechaFactura;
+    private javax.swing.JTextField txtIdAsignarProducto;
     private javax.swing.JTextField txtIdFactura;
+    private javax.swing.JTextField txtNombreAsignarProducto;
     private javax.swing.JTextField txtPagoFactura;
+    private javax.swing.JTextField txtPrecioVentaAsignarProducto;
+    private javax.swing.JTextField txtPromocionAsignarProducto;
+    private javax.swing.JTextField txtSubtotalAsignarProducto;
     private javax.swing.JTextField txtTotalFactura;
     private javax.swing.JTextField txtVendedorFactura;
     // End of variables declaration//GEN-END:variables

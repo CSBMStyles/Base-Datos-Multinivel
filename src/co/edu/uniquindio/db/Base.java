@@ -18,9 +18,10 @@ import java.sql.Statement;
 public class Base {
 
     private static Connection conexion = null;
-    private static String usuario = "MULTINIVEL_PARCIAL";
+    private static String usuario = "VIBRANCE";
     private static String clave = "111";
     private static String url = "jdbc:oracle:thin:@localhost:1521:XE";
+    
     
     public static Connection conectar() {
         try {

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name=".">
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/dao/FacturaConsulta.java</file>
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/bo/FacturaControlador.java</file>
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/entiti/DetalleFactura.java</file>
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/test/Test.java</file>
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/bo/DetalleControlador.java</file>
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/entiti/Factura.java</file>
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/db/Base.java</file>
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/view/Formulario.java</file>
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/dao/DetalleConsulta.java</file>
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/entiti/Pago.java</file>
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/bo/PagoControlador.java</file>
+            <file>file:/C:/Users/Cristian/OneDrive/Documentos/Universidad/2021-2/Programacion%20%7B3%7D/ws/MultinivelOracle/src/co/edu/uniquindio/dao/PagoConsulta.java</file>
+        </group>
+    </open-files>
+</project-private>
