@@ -5,8 +5,11 @@
  */
 package co.edu.uniquindio.view;
 
+import co.edu.uniquindio.bo.DetalleControlador;
 import co.edu.uniquindio.bo.FacturaControlador;
+import co.edu.uniquindio.bo.PagoControlador;
 import co.edu.uniquindio.bo.ProductoControlador;
+import co.edu.uniquindio.entiti.DetalleFactura;
 import co.edu.uniquindio.entiti.Factura;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,20 +32,25 @@ public class Formulario extends javax.swing.JFrame {
         listarProductosAsignar();
         bloquearComponentes();
     }
-    
+
     private FacturaControlador encbo = new FacturaControlador();
-    
     private ProductoControlador probo = new ProductoControlador();
+    private DetalleControlador detbo = new DetalleControlador();
+    private PagoControlador pagobo = new PagoControlador();
     
     public void listarFactura() {
         encbo.listarFactura(tbFactura);
     }
-    
+
     public void listarProductosAsignar() {
         probo.listarProducto(tbProductoAsignarProducto);
     }
-    
-    public void idMax(){
+
+    public void listarDetalle() {
+        detbo.listarDetalle(tbDetalleAsignarProducto);
+    }
+
+    public void idMax() {
         txtIdFactura.setText(encbo.getMaximoId() + "");
     }
 
@@ -87,6 +95,7 @@ public class Formulario extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtVendedorFactura = new javax.swing.JTextField();
         txtPagoFactura = new javax.swing.JTextField();
+        btnCalcularTotalFactura = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
@@ -120,6 +129,37 @@ public class Formulario extends javax.swing.JFrame {
         btnLimpiarAsignarProducto = new javax.swing.JButton();
         btnAsignarProducto = new javax.swing.JButton();
         btnBorrarAsignarProducto = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator1 = new javax.swing.JSeparator();
+        btnBuscarDetalleFactura = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        txtIdPago = new javax.swing.JTextField();
+        txtClientePago = new javax.swing.JTextField();
+        txtMontoPago = new javax.swing.JTextField();
+        txtFormaPago = new javax.swing.JTextField();
+        txtCambioPago = new javax.swing.JTextField();
+        txtFacturaPago = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbPago = new javax.swing.JTable();
+        btnRealizarPago = new javax.swing.JButton();
+        btnLimpiarPago = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
+        txtValorFacturaPago = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tbFacturaPago = new javax.swing.JTable();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        btnBuscarPago = new javax.swing.JButton();
+        btnEliminarPago = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -292,6 +332,15 @@ public class Formulario extends javax.swing.JFrame {
         txtPagoFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jPanel1.add(txtPagoFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 300, -1));
 
+        btnCalcularTotalFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        btnCalcularTotalFactura.setText("Calcular Total");
+        btnCalcularTotalFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularTotalFacturaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCalcularTotalFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, -1, -1));
+
         jPanel4.add(jPanel1);
 
         jTabbedPane2.addTab("Generar Factura", jPanel4);
@@ -334,7 +383,7 @@ public class Formulario extends javax.swing.JFrame {
 
         jLabel21.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         jLabel21.setText("Factura:");
-        jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
+        jPanel5.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 380, -1, -1));
 
         txtIdAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         txtIdAsignarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -342,7 +391,7 @@ public class Formulario extends javax.swing.JFrame {
                 txtIdAsignarProductoActionPerformed(evt);
             }
         });
-        jPanel5.add(txtIdAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 300, -1));
+        jPanel5.add(txtIdAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 300, -1));
 
         txtNombreAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         txtNombreAsignarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -350,31 +399,31 @@ public class Formulario extends javax.swing.JFrame {
                 txtNombreAsignarProductoActionPerformed(evt);
             }
         });
-        jPanel5.add(txtNombreAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 300, -1));
+        jPanel5.add(txtNombreAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 300, -1));
 
         txtPrecioVentaAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jPanel5.add(txtPrecioVentaAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 300, -1));
+        jPanel5.add(txtPrecioVentaAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 300, -1));
 
         txtCategoriaAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jPanel5.add(txtCategoriaAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 300, -1));
+        jPanel5.add(txtCategoriaAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 300, -1));
 
         txtPromocionAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jPanel5.add(txtPromocionAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 300, -1));
+        jPanel5.add(txtPromocionAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 300, -1));
 
         txtFacturaAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jPanel5.add(txtFacturaAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 300, -1));
+        jPanel5.add(txtFacturaAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 300, -1));
 
         rdDisponibleAsignarProducto.setBackground(new java.awt.Color(255, 255, 255));
         groupProductoAsignar.add(rdDisponibleAsignarProducto);
         rdDisponibleAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         rdDisponibleAsignarProducto.setText("Disponible");
-        jPanel5.add(rdDisponibleAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, -1, -1));
+        jPanel5.add(rdDisponibleAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, -1, -1));
 
         rdNoDisponibleAsignarProducto.setBackground(new java.awt.Color(255, 255, 255));
         groupProductoAsignar.add(rdNoDisponibleAsignarProducto);
         rdNoDisponibleAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         rdNoDisponibleAsignarProducto.setText("No Disponible");
-        jPanel5.add(rdNoDisponibleAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, -1, -1));
+        jPanel5.add(rdNoDisponibleAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, -1, -1));
 
         tbDetalleAsignarProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -387,9 +436,14 @@ public class Formulario extends javax.swing.JFrame {
 
             }
         ));
+        tbDetalleAsignarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDetalleMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbDetalleAsignarProducto);
 
-        jPanel5.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, 60, 670, 240));
+        jPanel5.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(522, 60, 690, 230));
 
         tbProductoAsignarProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -409,32 +463,37 @@ public class Formulario extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(tbProductoAsignarProducto);
 
-        jPanel5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 670, 260));
+        jPanel5.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 540, 1180, 370));
 
         jLabel22.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         jLabel22.setText("Buscar:");
-        jPanel5.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
+        jPanel5.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, -1, -1));
 
         txtBuscarAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 13)); // NOI18N
-        jPanel5.add(txtBuscarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 300, -1));
+        jPanel5.add(txtBuscarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, 300, -1));
 
         btnBuscarAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         btnBuscarAsignarProducto.setText("Buscar");
-        jPanel5.add(btnBuscarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 20, -1, -1));
+        btnBuscarAsignarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarAsignarProductoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnBuscarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 500, -1, -1));
 
         jLabel23.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         jLabel23.setText("Cantidad:");
-        jPanel5.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+        jPanel5.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 380, -1, -1));
 
         txtCantidadAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jPanel5.add(txtCantidadAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, 300, -1));
+        jPanel5.add(txtCantidadAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 380, 70, -1));
 
         jLabel24.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         jLabel24.setText("Subtotal:");
-        jPanel5.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, -1, -1));
+        jPanel5.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
 
         txtSubtotalAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jPanel5.add(txtSubtotalAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, 300, -1));
+        jPanel5.add(txtSubtotalAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 300, -1));
 
         btnLimpiarAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         btnLimpiarAsignarProducto.setText("Limpiar");
@@ -443,15 +502,43 @@ public class Formulario extends javax.swing.JFrame {
                 btnLimpiarAsignarProductoActionPerformed(evt);
             }
         });
-        jPanel5.add(btnLimpiarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 530, -1, -1));
+        jPanel5.add(btnLimpiarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 310, -1, -1));
 
         btnAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         btnAsignarProducto.setText("Asignar");
-        jPanel5.add(btnAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, -1, -1));
+        btnAsignarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarProductoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 310, -1, -1));
 
         btnBorrarAsignarProducto.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         btnBorrarAsignarProducto.setText("Borrar");
-        jPanel5.add(btnBorrarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 530, -1, -1));
+        btnBorrarAsignarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarAsignarProductoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnBorrarAsignarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 310, -1, -1));
+
+        jLabel15.setText(".");
+        jPanel5.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 930, 10, -1));
+
+        jLabel16.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel16.setText("INFORMACION DE PRODUCTOS");
+        jPanel5.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, -1, -1));
+        jPanel5.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 1260, 10));
+        jPanel5.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 1260, 20));
+
+        btnBuscarDetalleFactura.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        btnBuscarDetalleFactura.setText("Buscar Factura");
+        btnBuscarDetalleFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarDetalleFacturaActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnBuscarDetalleFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, -1, -1));
 
         jScrollPane1.setViewportView(jPanel5);
 
@@ -463,6 +550,138 @@ public class Formulario extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Venta", jPanel2);
 
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel17.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel17.setText("ID:");
+        jPanel7.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel19.setText("Monto:");
+        jPanel7.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+
+        jLabel26.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel26.setText("Cliente:");
+        jPanel7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
+
+        jLabel27.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel27.setText("Forma Pago:");
+        jPanel7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
+
+        jLabel28.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel28.setText("Cambio:");
+        jPanel7.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, -1, -1));
+
+        jLabel29.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel29.setText("Factura:");
+        jPanel7.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
+
+        txtIdPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel7.add(txtIdPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 300, -1));
+
+        txtClientePago.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel7.add(txtClientePago, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 300, -1));
+
+        txtMontoPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel7.add(txtMontoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 300, -1));
+
+        txtFormaPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel7.add(txtFormaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 300, -1));
+
+        txtCambioPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel7.add(txtCambioPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 300, -1));
+
+        txtFacturaPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel7.add(txtFacturaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 300, -1));
+
+        jLabel30.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel30.setText("SHIHARAI SEKUSHON");
+        jPanel7.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
+
+        tbPago.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbPago.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbPagoMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tbPago);
+
+        jPanel7.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 690, 230));
+
+        btnRealizarPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        btnRealizarPago.setText("Realizar Pago");
+        jPanel7.add(btnRealizarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, -1, -1));
+
+        btnLimpiarPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        btnLimpiarPago.setText("Limpiar");
+        btnLimpiarPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarPagoActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnLimpiarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, -1));
+
+        jLabel31.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        jLabel31.setText("Valor Factura:");
+        jPanel7.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
+
+        txtValorFacturaPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jPanel7.add(txtValorFacturaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 300, -1));
+
+        tbFacturaPago.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbFacturaPago.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbFacturaPagoMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tbFacturaPago);
+
+        jPanel7.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 360, 690, 230));
+
+        jLabel25.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel25.setText("TABLA DE PAGOS");
+        jPanel7.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, -1, -1));
+
+        jLabel32.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel32.setText("TABLA DE FACTURAS");
+        jPanel7.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, -1, -1));
+
+        btnBuscarPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        btnBuscarPago.setText("Buscar");
+        btnBuscarPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarPagoActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnBuscarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, -1, -1));
+
+        btnEliminarPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
+        btnEliminarPago.setText("Eliminar");
+        jPanel7.add(btnEliminarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 480, -1, -1));
+
+        jTabbedPane1.addTab("Pago", jPanel7);
+
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 650));
 
         pack();
@@ -473,116 +692,114 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFinalizarFacturaActionPerformed
 
     private void btnAgregarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarFacturaActionPerformed
-        if (txtIdFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty() ){
+        if (txtIdFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Llene los datos");
         } else {
             Integer tipo;
             if (rdInactivoFactura.isSelected()) {
                 tipo = 2;
-            }else {
+            } else {
                 tipo = 1;
             }
-            
+
             Factura enc = new Factura();
-           
-             LocalDate fechaLocal = LocalDate.now();
-             java.sql.Date fecha = java.sql.Date.valueOf(fechaLocal);
-            
+
+            LocalDate fechaLocal = LocalDate.now();
+            java.sql.Date fecha = java.sql.Date.valueOf(fechaLocal);
+
             //SimpleDateFormat fechaFormato = new SimpleDateFormat("dd-mm-yy");
-            
             enc.setId(Integer.parseInt(txtIdFactura.getText()));
-            
+
             enc.setFechaVenta(fecha);
             if (txtTotalFactura.getText().isEmpty()) {
                 Double total = null;
-                 enc.setTotalVenta(total);
+                enc.setTotalVenta(total);
             } else {
-                 enc.setTotalVenta(Double.parseDouble(txtTotalFactura.getText()));
+                enc.setTotalVenta(Double.parseDouble(txtTotalFactura.getText()));
             }
-           
+
             enc.setVendedorId(Integer.parseInt(txtVendedorFactura.getText()));
             enc.setEstadoId(tipo);
-            
+
             if (txtPagoFactura.getText().isEmpty()) {
                 Integer pago = null;
                 enc.setPagoId(pago);
-            }else {
+            } else {
                 enc.setPagoId(Integer.parseInt(txtPagoFactura.getText()));
             }
-            
+
             enc.setClienteCedula(Integer.parseInt(txtClienteFactura.getText()));
             String mensaje = encbo.agregarFactura(enc);
-            
+
             JOptionPane.showMessageDialog(null, mensaje);
-            
+
             limpiar();
             listarFactura();
         }
     }//GEN-LAST:event_btnAgregarFacturaActionPerformed
 
     private void btnModificarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarFacturaActionPerformed
-        if (txtIdFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty() ) {
+        if (txtIdFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Llene los datos");
         } else {
             Integer tipo;
             if (rdInactivoFactura.isSelected()) {
                 tipo = 2;
-            }else {
+            } else {
                 tipo = 1;
             }
-            
+
             Factura enc = new Factura();
 
-             LocalDate fechaLocal = LocalDate.now();
-             java.sql.Date fecha = java.sql.Date.valueOf(fechaLocal);
-            
+            LocalDate fechaLocal = LocalDate.now();
+            java.sql.Date fecha = java.sql.Date.valueOf(fechaLocal);
+
             //SimpleDateFormat fechaFormato = new SimpleDateFormat("dd-mm-yy");
-            
             enc.setId(Integer.parseInt(txtIdFactura.getText()));
-            
-             enc.setFechaVenta(fecha);
+
+            enc.setFechaVenta(fecha);
             if (txtTotalFactura.getText().isEmpty()) {
                 Double total = null;
-                 enc.setTotalVenta(total);
+                enc.setTotalVenta(total);
             } else {
-                 enc.setTotalVenta(Double.parseDouble(txtTotalFactura.getText()));
+                enc.setTotalVenta(Double.parseDouble(txtTotalFactura.getText()));
             }
-           
+
             enc.setVendedorId(Integer.parseInt(txtVendedorFactura.getText()));
             enc.setEstadoId(tipo);
-            
+
             if (txtPagoFactura.getText().isEmpty()) {
                 Integer pago = null;
                 enc.setPagoId(pago);
-            }else {
+            } else {
                 enc.setPagoId(Integer.parseInt(txtPagoFactura.getText()));
             }
-            
+
             enc.setClienteCedula(Integer.parseInt(txtClienteFactura.getText()));
             String mensaje = encbo.modificarFactura(enc);
-            
+
             JOptionPane.showMessageDialog(null, mensaje);
-            
+
             limpiar();
             listarFactura();
         }
     }//GEN-LAST:event_btnModificarFacturaActionPerformed
 
     private void btnLimpiarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarFacturaActionPerformed
-       limpiar();
+        limpiar();
     }//GEN-LAST:event_btnLimpiarFacturaActionPerformed
 
-    public void limpiar(){
-       txtIdFactura.setText("");
-       txtFechaFactura.setText("");
-       txtTotalFactura.setText("");
-       txtVendedorFactura.setText("");
-       txtPagoFactura.setText("");
-       txtClienteFactura.setText("");
-       groupTipo.clearSelection();
+    public void limpiar() {
+        txtIdFactura.setText("");
+        txtFechaFactura.setText("");
+        txtTotalFactura.setText("");
+        txtVendedorFactura.setText("");
+        txtPagoFactura.setText("");
+        txtClienteFactura.setText("");
+        groupTipo.clearSelection();
     }
-    
-    public void bloquearComponentes(){
+
+    public void bloquearComponentes() {
         txtFechaFactura.setEnabled(false);
         txtIdAsignarProducto.setEnabled(false);
         txtNombreAsignarProducto.setEnabled(false);
@@ -592,47 +809,56 @@ public class Formulario extends javax.swing.JFrame {
         rdDisponibleAsignarProducto.setEnabled(false);
         rdNoDisponibleAsignarProducto.setEnabled(false);
         txtSubtotalAsignarProducto.setEnabled(false);
+        txtValorFacturaPago.setEnabled(false);
     }
-    
+
     private void btnEliminarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFacturaActionPerformed
-        if (txtIdFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty() ) {
+        if (txtIdFactura.getText().isEmpty() || txtVendedorFactura.getText().isEmpty() || txtClienteFactura.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Llene los datos");
         } else {
             Factura enc = new Factura();
+            
+              int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar la factura?");
+            
+            if (confirmacion == JOptionPane.YES_OPTION) {
+            
             String mensaje = encbo.eliminarFactura(Integer.parseInt(txtIdFactura.getText()));
-            
+
             JOptionPane.showMessageDialog(null, mensaje);
-            
+
             limpiar();
             listarFactura();
+            }
         }
     }//GEN-LAST:event_btnEliminarFacturaActionPerformed
 
     private void tbFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFacturaMouseClicked
-       int seleccion = tbFactura.rowAtPoint(evt.getPoint());
-       txtIdFactura.setText(tbFactura.getValueAt(seleccion, 0) + "");
-       txtFechaFactura.setText(tbFactura.getValueAt(seleccion, 1) + "");
+        int seleccion = tbFactura.rowAtPoint(evt.getPoint());
+        txtIdFactura.setText(tbFactura.getValueAt(seleccion, 0) + "");
+        txtFechaFactura.setText(tbFactura.getValueAt(seleccion, 1) + "");
         if ((tbFactura.getValueAt(seleccion, 2) + "").equals("null")) {
             txtTotalFactura.setText("");
-        }else {
+        } else {
             txtTotalFactura.setText(tbFactura.getValueAt(seleccion, 2) + "");
         }
-       
-       txtVendedorFactura.setText(tbFactura.getValueAt(seleccion, 3) + "");
-       String tipo = tbFactura.getValueAt(seleccion, 4) + "";
+
+        txtVendedorFactura.setText(tbFactura.getValueAt(seleccion, 3) + "");
+        String tipo = tbFactura.getValueAt(seleccion, 4) + "";
         if (tipo.equals("2")) {
             rdInactivoFactura.setSelected(true);
-        }else if (tipo.equals("1")) {
+        } else if (tipo.equals("1")) {
             rdActivoFactura.setSelected(true);
         }
-        
+
         if ((tbFactura.getValueAt(seleccion, 5) + "").equals("null")) {
             txtPagoFactura.setText("");
         } else {
             txtPagoFactura.setText(tbFactura.getValueAt(seleccion, 5) + "");
         }
-       
-       txtClienteFactura.setText(tbFactura.getValueAt(seleccion, 6) + "");
+
+        txtClienteFactura.setText(tbFactura.getValueAt(seleccion, 6) + "");
+
+        txtFacturaAsignarProducto.setText(tbFactura.getValueAt(seleccion, 0) + "");
     }//GEN-LAST:event_tbFacturaMouseClicked
 
     private void txtTotalFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalFacturaActionPerformed
@@ -648,7 +874,7 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_rdActivoFacturaActionPerformed
 
     private void txtFechaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaFacturaActionPerformed
-       // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaFacturaActionPerformed
 
     private void txtIdAsignarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdAsignarProductoActionPerformed
@@ -665,28 +891,178 @@ public class Formulario extends javax.swing.JFrame {
         txtPrecioVentaAsignarProducto.setText("");
         txtCategoriaAsignarProducto.setText("");
         txtPromocionAsignarProducto.setText("");
-        rdDisponibleAsignarProducto.setText("");
-        rdNoDisponibleAsignarProducto.setText("");
+        groupProductoAsignar.clearSelection();
         txtFacturaAsignarProducto.setText("");
         txtCantidadAsignarProducto.setText("");
         txtSubtotalAsignarProducto.setText("");
     }//GEN-LAST:event_btnLimpiarAsignarProductoActionPerformed
 
     private void tbProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProductoMouseClicked
-       int seleccion = tbProductoAsignarProducto.rowAtPoint(evt.getPoint());
-       txtIdAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 0) + "");
-       txtNombreAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 1) + "");
-       txtPrecioVentaAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 2) + "");
-       txtCategoriaAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 3) + "");
-       txtPromocionAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 4) + "");
-               
-        String tipo = tbProductoAsignarProducto.getValueAt(seleccion, 5) + "";
+        int seleccion = tbProductoAsignarProducto.rowAtPoint(evt.getPoint());
+        txtIdAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 0) + "");
+        txtNombreAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 1) + "");
+        txtPrecioVentaAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 2) + "");
+        txtCategoriaAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 4) + "");
+
+        if ((tbProductoAsignarProducto.getValueAt(seleccion, 8) + "").equals("null")) {
+            txtPromocionAsignarProducto.setText("");
+        } else {
+            txtPromocionAsignarProducto.setText(tbProductoAsignarProducto.getValueAt(seleccion, 8) + "");
+        }
+
+        String tipo = tbProductoAsignarProducto.getValueAt(seleccion, 10) + "";
         if (tipo.equals("2")) {
             rdNoDisponibleAsignarProducto.setSelected(true);
-        }else if (tipo.equals("1")) {
+        } else if (tipo.equals("1")) {
             rdDisponibleAsignarProducto.setSelected(true);
-        } 
+        }
     }//GEN-LAST:event_tbProductoMouseClicked
+
+    private void btnBuscarAsignarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAsignarProductoActionPerformed
+
+        if (txtBuscarAsignarProducto.getText().isEmpty()) {
+            listarProductosAsignar();
+        } else {
+            probo.buscarProducto(Integer.parseInt(txtBuscarAsignarProducto.getText()), tbProductoAsignarProducto);
+        }
+
+    }//GEN-LAST:event_btnBuscarAsignarProductoActionPerformed
+
+    private void tbDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDetalleMouseClicked
+        int seleccion = tbDetalleAsignarProducto.rowAtPoint(evt.getPoint());
+        txtFacturaAsignarProducto.setText(tbDetalleAsignarProducto.getValueAt(seleccion, 1) + "");
+
+        if ((tbDetalleAsignarProducto.getValueAt(seleccion, 2) + "").equals("null")) {
+            txtCantidadAsignarProducto.setText("");
+        } else {
+            txtCantidadAsignarProducto.setText(tbDetalleAsignarProducto.getValueAt(seleccion, 2) + "");
+        }
+
+        if ((tbDetalleAsignarProducto.getValueAt(seleccion, 3) + "").equals("null")) {
+            txtSubtotalAsignarProducto.setText("");
+        } else {
+            txtSubtotalAsignarProducto.setText(tbDetalleAsignarProducto.getValueAt(seleccion, 3) + "");
+        }
+    }//GEN-LAST:event_tbDetalleMouseClicked
+
+    private void btnBuscarDetalleFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDetalleFacturaActionPerformed
+        if (txtFacturaAsignarProducto.getText().isEmpty()) {
+            listarDetalle();
+        } else {
+            detbo.buscarDetalle(Integer.parseInt(txtFacturaAsignarProducto.getText()), tbDetalleAsignarProducto);
+        }
+    }//GEN-LAST:event_btnBuscarDetalleFacturaActionPerformed
+
+    private void btnAsignarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarProductoActionPerformed
+        if (txtFacturaAsignarProducto.getText().isEmpty() || txtIdAsignarProducto.getText().isEmpty() || txtCantidadAsignarProducto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Llene los datos");
+        } else {
+
+            DetalleFactura det = new DetalleFactura();
+
+            det.setProductoId(Integer.parseInt(txtIdAsignarProducto.getText()));
+            det.setVentaId(Integer.parseInt(txtFacturaAsignarProducto.getText()));
+            det.setCantidad(Integer.parseInt(txtCantidadAsignarProducto.getText()));
+
+            if (txtSubtotalAsignarProducto.getText().isEmpty()) {
+                Double subtotal = null;
+                det.setSubtotal(subtotal);
+            } else {
+                det.setSubtotal(Double.parseDouble(txtSubtotalAsignarProducto.getText()));
+            }
+
+            String mensaje = detbo.crearDetalle(det);
+
+            JOptionPane.showMessageDialog(null, mensaje);
+
+            if (txtFacturaAsignarProducto.getText().isEmpty()) {
+                listarDetalle();
+            } else {
+                detbo.buscarDetalle(Integer.parseInt(txtFacturaAsignarProducto.getText()), tbDetalleAsignarProducto);
+            }
+
+            if (txtBuscarAsignarProducto.getText().isEmpty()) {
+                listarProductosAsignar();
+            } else {
+                probo.buscarProducto(Integer.parseInt(txtBuscarAsignarProducto.getText()), tbProductoAsignarProducto);
+            }
+        }
+
+    }//GEN-LAST:event_btnAsignarProductoActionPerformed
+
+    private void btnBorrarAsignarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarAsignarProductoActionPerformed
+         if (txtFacturaAsignarProducto.getText().isEmpty() || txtIdAsignarProducto.getText().isEmpty() || txtCantidadAsignarProducto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Llene los datos");
+        } else {
+            DetalleFactura det = new DetalleFactura();
+             
+            String mensaje = detbo.eliminarDetalle(Integer.parseInt(txtIdAsignarProducto.getText()), Integer.parseInt(txtFacturaAsignarProducto.getText()));
+
+            JOptionPane.showMessageDialog(null, mensaje);
+
+            if (txtFacturaAsignarProducto.getText().isEmpty()) {
+                listarDetalle();
+            } else {
+                detbo.buscarDetalle(Integer.parseInt(txtFacturaAsignarProducto.getText()), tbDetalleAsignarProducto);
+            }
+
+            if (txtBuscarAsignarProducto.getText().isEmpty()) {
+                listarProductosAsignar();
+            } else {
+                probo.buscarProducto(Integer.parseInt(txtBuscarAsignarProducto.getText()), tbProductoAsignarProducto);
+            }
+         }
+    }//GEN-LAST:event_btnBorrarAsignarProductoActionPerformed
+
+    private void btnCalcularTotalFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularTotalFacturaActionPerformed
+       if (txtIdFactura.getText().isEmpty()){
+           JOptionPane.showMessageDialog(null, "No se puede calcular si no hay identificador");
+       } else {
+           Double total = encbo.calcularTotalFactura(Integer.parseInt(txtIdFactura.getText()));
+           
+            txtTotalFactura.setText(Double.toString(total));
+       }
+
+    }//GEN-LAST:event_btnCalcularTotalFacturaActionPerformed
+
+    private void btnLimpiarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarPagoActionPerformed
+        txtIdPago.setText("");
+        txtMontoPago.setText("");
+        txtClientePago.setText("");
+        txtFormaPago.setText("");
+        txtCambioPago.setText("");
+        txtFacturaPago.setText("");
+        txtValorFacturaPago.setText("");
+    }//GEN-LAST:event_btnLimpiarPagoActionPerformed
+
+    private void tbPagoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPagoMouseClicked
+        int seleccion = tbPago.rowAtPoint(evt.getPoint());
+        txtIdPago.setText(tbPago.getValueAt(seleccion, 0) + "");
+        txtMontoPago.setText(tbPago.getValueAt(seleccion, 1) + "");
+        txtClientePago.setText(tbPago.getValueAt(seleccion, 3) + "");
+        txtFormaPago.setText(tbPago.getValueAt(seleccion, 4) + "");
+        
+        if ((tbPago.getValueAt(seleccion, 5) + "").equals("null")) {
+             txtCambioPago.setText("");
+        } else {
+            txtCambioPago.setText(tbPago.getValueAt(seleccion, 5) + "");
+        }
+    }//GEN-LAST:event_tbPagoMouseClicked
+
+    private void tbFacturaPagoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFacturaPagoMouseClicked
+        int seleccion = tbFacturaPago.rowAtPoint(evt.getPoint());
+        txtFacturaPago.setText(tbFacturaPago.getValueAt(seleccion, 0) + "");
+        txtValorFacturaPago.setText(tbFacturaPago.getValueAt(seleccion, 2) + "");
+    }//GEN-LAST:event_tbFacturaPagoMouseClicked
+
+    private void btnBuscarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPagoActionPerformed
+       if (txtClientePago.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese la cedula cliente");
+        } else {
+        encbo.buscarFactura(Integer.parseInt(txtClientePago.getText()), tbFacturaPago);
+        pagobo.buscarPago(Integer.parseInt(txtClientePago.getText()), tbPago);
+       }
+    }//GEN-LAST:event_btnBuscarPagoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -729,11 +1105,17 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JButton btnAsignarProducto;
     private javax.swing.JButton btnBorrarAsignarProducto;
     private javax.swing.JButton btnBuscarAsignarProducto;
+    private javax.swing.JButton btnBuscarDetalleFactura;
+    private javax.swing.JButton btnBuscarPago;
+    private javax.swing.JButton btnCalcularTotalFactura;
     private javax.swing.JButton btnEliminarFactura;
+    private javax.swing.JButton btnEliminarPago;
     private javax.swing.JButton btnFinalizarFactura;
     private javax.swing.JButton btnLimpiarAsignarProducto;
     private javax.swing.JButton btnLimpiarFactura;
+    private javax.swing.JButton btnLimpiarPago;
     private javax.swing.JButton btnModificarFactura;
+    private javax.swing.JButton btnRealizarPago;
     private javax.swing.ButtonGroup groupProductoAsignar;
     private javax.swing.ButtonGroup groupTipo;
     private javax.swing.JLabel jLabel1;
@@ -742,14 +1124,26 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -762,10 +1156,15 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JRadioButton rdActivoFactura;
@@ -774,21 +1173,30 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdNoDisponibleAsignarProducto;
     private javax.swing.JTable tbDetalleAsignarProducto;
     private javax.swing.JTable tbFactura;
+    private javax.swing.JTable tbFacturaPago;
+    private javax.swing.JTable tbPago;
     private javax.swing.JTable tbProductoAsignarProducto;
     private javax.swing.JTextField txtBuscarAsignarProducto;
+    private javax.swing.JTextField txtCambioPago;
     private javax.swing.JTextField txtCantidadAsignarProducto;
     private javax.swing.JTextField txtCategoriaAsignarProducto;
     private javax.swing.JTextField txtClienteFactura;
+    private javax.swing.JTextField txtClientePago;
     private javax.swing.JTextField txtFacturaAsignarProducto;
+    private javax.swing.JTextField txtFacturaPago;
     private javax.swing.JTextField txtFechaFactura;
+    private javax.swing.JTextField txtFormaPago;
     private javax.swing.JTextField txtIdAsignarProducto;
     private javax.swing.JTextField txtIdFactura;
+    private javax.swing.JTextField txtIdPago;
+    private javax.swing.JTextField txtMontoPago;
     private javax.swing.JTextField txtNombreAsignarProducto;
     private javax.swing.JTextField txtPagoFactura;
     private javax.swing.JTextField txtPrecioVentaAsignarProducto;
     private javax.swing.JTextField txtPromocionAsignarProducto;
     private javax.swing.JTextField txtSubtotalAsignarProducto;
     private javax.swing.JTextField txtTotalFactura;
+    private javax.swing.JTextField txtValorFacturaPago;
     private javax.swing.JTextField txtVendedorFactura;
     // End of variables declaration//GEN-END:variables
 }

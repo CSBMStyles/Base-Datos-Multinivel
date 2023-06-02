@@ -24,6 +24,7 @@ import javax.swing.JTable;
 public class FacturaControlador {
     
     private String mensaje = "";
+    private Double total = 0.0;
     private FacturaConsulta encdao = new FacturaConsulta();
     
     public String agregarFactura(Factura enc) {
@@ -114,5 +115,38 @@ public class FacturaControlador {
             ex.printStackTrace();
         }
         return id;
+    }
+
+    public Double calcularTotalFactura(Integer factura) {
+         Connection conexion = Base.conectar();
+                
+        try {
+            total = encdao.calcularTotalFactura(conexion, factura);
+            //conexion.rollback();
+        } catch (Exception e) {
+            mensaje = mensaje + " " + e.getMessage();
+        } finally {
+            try {
+                if (conexion != null) {
+                conexion.close();
+            }
+            } catch (Exception e) {
+                e.printStackTrace();
+                mensaje = mensaje + " " + e.getMessage();
+            }
+        }
+        return total;
+    }
+
+    public void buscarFactura(Integer cliente, JTable tabla) {
+        Connection conexion = Base.conectar();
+        
+        encdao.buscarDetalle(cliente, conexion, tabla);
+        
+        try {
+            conexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }

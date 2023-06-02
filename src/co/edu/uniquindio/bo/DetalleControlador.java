@@ -5,8 +5,10 @@
  */
 package co.edu.uniquindio.bo;
 
+import co.edu.uniquindio.dao.DetalleConsulta;
 import co.edu.uniquindio.dao.FacturaConsulta;
 import co.edu.uniquindio.db.Base;
+import co.edu.uniquindio.entiti.DetalleFactura;
 
 
 import co.edu.uniquindio.entiti.Factura;
@@ -24,14 +26,14 @@ import javax.swing.JTable;
 public class DetalleControlador {
     
     private String mensaje = "";
-    private FacturaConsulta encdao = new FacturaConsulta();
+    private DetalleConsulta detdao = new DetalleConsulta();
     
     public String agregarFactura(Factura enc) {
 
         Connection conexion = Base.conectar();
                 
         try {
-            mensaje = encdao.agregarFactura(conexion, enc);
+            mensaje = detdao.agregarFactura(conexion, enc);
             //conexion.rollback();
         } catch (Exception e) {
             mensaje = mensaje + " " + e.getMessage();
@@ -53,7 +55,7 @@ public class DetalleControlador {
         Connection conexion = Base.conectar();
                 
         try {
-            mensaje = encdao.modificarFactura(conexion, enc);
+            mensaje = detdao.modificarFactura(conexion, enc);
             //conexion.rollback();
         } catch (Exception e) {
             mensaje = mensaje + " " + e.getMessage();
@@ -70,11 +72,11 @@ public class DetalleControlador {
         return mensaje;
     }
     
-    public String eliminarFactura(Integer id) {
+    public String eliminarDetalle(Integer producto, Integer venta) {
         Connection conexion = Base.conectar();
                 
         try {
-            mensaje = encdao.eliminarFactura(conexion, id);
+            mensaje = detdao.eliminarDetalle(conexion, producto, venta);
             //conexion.rollback();
         } catch (Exception e) {
             mensaje = mensaje + " " + e.getMessage();
@@ -91,10 +93,10 @@ public class DetalleControlador {
         return mensaje;
     }
     
-    public void listarFactura(JTable tabla) {
+    public void listarDetalle(JTable tabla) {
          Connection conexion = Base.conectar();
         
-        encdao.listarFactura(conexion, tabla);
+        detdao.listarDetalle(conexion, tabla);
         
         try {
             conexion.close();
@@ -106,7 +108,7 @@ public class DetalleControlador {
     public Integer getMaximoId () {
         Connection conexion = Base.conectar();
         
-        int id = encdao.getIdMaximo(conexion);
+        int id = detdao.getIdMaximo(conexion);
         
         try {
             conexion.close();
@@ -114,5 +116,38 @@ public class DetalleControlador {
             ex.printStackTrace();
         }
         return id;
+    }
+
+    public void buscarDetalle(Integer factura, JTable tabla) {
+        Connection conexion = Base.conectar();
+        
+        detdao.buscarDetalle(factura, conexion, tabla);
+        
+        try {
+            conexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public String crearDetalle(DetalleFactura detalle) {
+        Connection conexion = Base.conectar();
+                
+        try {
+            mensaje = detdao.crearDetalle(conexion, detalle);
+            //conexion.rollback();
+        } catch (Exception e) {
+            mensaje = mensaje + " " + e.getMessage();
+        } finally {
+            try {
+                if (conexion != null) {
+                conexion.close();
+            }
+            } catch (Exception e) {
+                e.printStackTrace();
+                mensaje = mensaje + " " + e.getMessage();
+            }
+        }
+        return mensaje;
     }
 }

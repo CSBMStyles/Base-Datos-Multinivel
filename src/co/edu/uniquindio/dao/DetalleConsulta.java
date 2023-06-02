@@ -5,13 +5,16 @@
  */
 package co.edu.uniquindio.dao;
 
+import co.edu.uniquindio.entiti.DetalleFactura;
 import co.edu.uniquindio.entiti.Factura;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -103,14 +106,15 @@ public class DetalleConsulta {
         return mensaje;
     }
 
-    public String eliminarFactura(Connection conn, Integer id) {
+    public String eliminarDetalle(Connection conn, Integer producto, Integer venta) {
         PreparedStatement stmt = null;
 
-        String sql = "delete from FACTURAVENTA where ID = ?";
+        String sql = "delete from DETALLEVENTA where PRODUCTO_ID = ? AND VENTA_ID = ?";
 
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setInt(1, producto);
+            stmt.setInt(2, venta);
 
             mensaje = "Eliminado correctamente";
 
@@ -124,16 +128,16 @@ public class DetalleConsulta {
         return mensaje;
     }
 
-    public void listarFactura(Connection conn, JTable tabla) {
+    public void listarDetalle(Connection conn, JTable tabla) {
 
         DefaultTableModel model;
-        String[] columnas = {"ID", "FECHAVENTA", "TOTALVENTA", "VENDEDOR_ID", "ESTADO_ID", "PAGO_ID", "CLIENTE_CEDULA"};
+        String[] columnas = {"PRODUCTO_ID", "VENTA_ID", "CANTIDAD", "SUBTOTAL"};
 
         model = new DefaultTableModel(null, columnas);
 
-        String sql = "select * from FACTURAVENTA";
+        String sql = "select * from DETALLEVENTA";
 
-        String[] filas = new String[7];
+        String[] filas = new String[4];
         Statement st = null;
         ResultSet rs = null;
 
@@ -141,7 +145,7 @@ public class DetalleConsulta {
             st = conn.createStatement();
             rs = st.executeQuery(sql);
             while (rs.next()) {
-                for (int i = 0; i < 7; i++) {
+                for (int i = 0; i < 4; i++) {
                     filas[i] = rs.getString(i + 1);
                 }
                 model.addRow(filas);
@@ -172,5 +176,73 @@ public class DetalleConsulta {
             e.printStackTrace();
         }
         return id;
+    }
+
+    public void buscarDetalle(Integer factura, Connection conn, JTable tabla) {
+                DefaultTableModel model;
+        String[] columnas = {"PRODUCTO_ID", "VENTA_ID", "CANTIDAD", "SUBTOTAL"};
+
+        model = new DefaultTableModel(null, columnas);
+
+        String sql = "select * from DETALLEVENTA where VENTA_ID = ?";
+
+        String[] filas = new String[4];
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, factura);
+            rs = stmt.executeQuery(); // Ejecutar la consulta utilizando el PreparedStatement
+
+            while (rs.next()) {
+                for (int i = 0; i < 4; i++) {
+                    filas[i] = rs.getString(i + 1);
+                }
+                model.addRow(filas);
+            }
+            tabla.setModel(model);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar los recursos en un bloque finally
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String crearDetalle(Connection conn, DetalleFactura detalle) {
+        PreparedStatement stmt = null;
+
+        String sql = "{ ? = call CREAR_DETALLE_VENTA(?, ?, ?) }";
+
+        try {
+            CallableStatement call = conn.prepareCall(sql);
+            call.registerOutParameter(1, Types.NUMERIC);
+            call.setInt(2, detalle.getProductoId()); 
+            call.setInt(3, detalle.getVentaId());   
+            call.setInt(4, detalle.getCantidad());  
+            
+            call.execute();
+
+            Double subtotal = call.getDouble(1);
+
+            System.out.println("Subtotal: " + subtotal);
+            mensaje = "Guardado correctamente";
+
+            call.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensaje = "No se pudo guardar: " + e;
+        }
+        return mensaje;
     }
 }

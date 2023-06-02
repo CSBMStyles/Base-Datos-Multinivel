@@ -173,4 +173,45 @@ public class PagoConsulta {
         }
         return id;
     }
+    
+        public void buscarPago(Integer cliente, Connection conn, JTable tabla) {
+        DefaultTableModel model;
+        String[] columnas = {"ID", "MONTO", "ESTADO_ID", "CLIENTE_CEDULA", "FORMAPAGO_ID", "CAMBIO"};
+
+        model = new DefaultTableModel(null, columnas);
+
+        String sql = "select * from PAGO where CLIENTE_CEDULA = ?";
+
+        String[] filas = new String[6];
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, cliente);
+            rs = stmt.executeQuery(); // Ejecutar la consulta utilizando el PreparedStatement
+
+            while (rs.next()) {
+                for (int i = 0; i < 6; i++) {
+                    filas[i] = rs.getString(i + 1);
+                }
+                model.addRow(filas);
+            }
+            tabla.setModel(model);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar los recursos en un bloque finally
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

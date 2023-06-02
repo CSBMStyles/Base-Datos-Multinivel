@@ -6,6 +6,7 @@
 package co.edu.uniquindio.bo;
 
 import co.edu.uniquindio.dao.FacturaConsulta;
+import co.edu.uniquindio.dao.PagoConsulta;
 import co.edu.uniquindio.db.Base;
 
 
@@ -24,14 +25,14 @@ import javax.swing.JTable;
 public class PagoControlador {
     
     private String mensaje = "";
-    private FacturaConsulta encdao = new FacturaConsulta();
+    private PagoConsulta pagodao = new PagoConsulta();
     
     public String agregarFactura(Factura enc) {
 
         Connection conexion = Base.conectar();
                 
         try {
-            mensaje = encdao.agregarFactura(conexion, enc);
+            mensaje = pagodao.agregarFactura(conexion, enc);
             //conexion.rollback();
         } catch (Exception e) {
             mensaje = mensaje + " " + e.getMessage();
@@ -53,7 +54,7 @@ public class PagoControlador {
         Connection conexion = Base.conectar();
                 
         try {
-            mensaje = encdao.modificarFactura(conexion, enc);
+            mensaje = pagodao.modificarFactura(conexion, enc);
             //conexion.rollback();
         } catch (Exception e) {
             mensaje = mensaje + " " + e.getMessage();
@@ -74,7 +75,7 @@ public class PagoControlador {
         Connection conexion = Base.conectar();
                 
         try {
-            mensaje = encdao.eliminarFactura(conexion, id);
+            mensaje = pagodao.eliminarFactura(conexion, id);
             //conexion.rollback();
         } catch (Exception e) {
             mensaje = mensaje + " " + e.getMessage();
@@ -94,7 +95,7 @@ public class PagoControlador {
     public void listarFactura(JTable tabla) {
          Connection conexion = Base.conectar();
         
-        encdao.listarFactura(conexion, tabla);
+        pagodao.listarFactura(conexion, tabla);
         
         try {
             conexion.close();
@@ -106,7 +107,7 @@ public class PagoControlador {
     public Integer getMaximoId () {
         Connection conexion = Base.conectar();
         
-        int id = encdao.getIdMaximo(conexion);
+        int id = pagodao.getIdMaximo(conexion);
         
         try {
             conexion.close();
@@ -114,5 +115,17 @@ public class PagoControlador {
             ex.printStackTrace();
         }
         return id;
+    }
+
+    public void buscarPago(Integer cliente, JTable tabla) {
+        Connection conexion = Base.conectar();
+        
+        pagodao.buscarPago(cliente, conexion, tabla);
+        
+        try {
+            conexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }

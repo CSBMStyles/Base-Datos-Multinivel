@@ -116,4 +116,16 @@ public class ProductoControlador {
         }
         return id;
     }
+
+    public void buscarProducto(Integer id, JTable tabla) {
+        Connection conexion = Base.conectar();
+        
+        prodao.buscarProducto(id, conexion, tabla);
+        
+        try {
+            conexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

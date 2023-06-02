@@ -6,12 +6,14 @@
 package co.edu.uniquindio.dao;
 
 import co.edu.uniquindio.entiti.Factura;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -173,4 +175,74 @@ public class FacturaConsulta {
         }
         return id;
     }
+
+    public Double calcularTotalFactura(Connection conn, Integer factura) {
+        PreparedStatement stmt = null;
+
+        String sql = "{ ? = call CALCULAR_TOTALVENTA(?) }";
+
+        Double total = 0.0;
+        
+        try {
+            CallableStatement call = conn.prepareCall(sql);
+            call.registerOutParameter(1, Types.NUMERIC);
+            call.setInt(2, factura);   
+            
+            call.execute();
+
+            total = call.getDouble(1);
+
+            System.out.println("Subtotal: " + total);
+            mensaje = "Guardado correctamente";
+
+            call.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensaje = "No se pudo guardar: " + e;
+        }
+        return total;
+    }
+
+    public void buscarDetalle(Integer cliente, Connection conn, JTable tabla) {
+        DefaultTableModel model;
+        String[] columnas = {"ID", "FECHAVENTA", "TOTALVENTA", "VENDEDOR_ID", "ESTADO_ID", "PAGO_ID", "CLIENTE_CEDULA"};
+
+        model = new DefaultTableModel(null, columnas);
+
+        String sql = "select * from FACTURAVENTA where CLIENTE_CEDULA = ?";
+
+        String[] filas = new String[7];
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, cliente);
+            rs = stmt.executeQuery(); // Ejecutar la consulta utilizando el PreparedStatement
+
+            while (rs.next()) {
+                for (int i = 0; i < 7; i++) {
+                    filas[i] = rs.getString(i + 1);
+                }
+                model.addRow(filas);
+            }
+            tabla.setModel(model);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Cerrar los recursos en un bloque finally
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }
