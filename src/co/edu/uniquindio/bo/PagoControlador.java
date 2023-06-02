@@ -11,6 +11,7 @@ import co.edu.uniquindio.db.Base;
 
 
 import co.edu.uniquindio.entiti.Factura;
+import co.edu.uniquindio.entiti.Pago;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -127,5 +128,47 @@ public class PagoControlador {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public String agregarPago(Pago pago, Integer factura, Double valorFactura) {
+               Connection conexion = Base.conectar();
+                
+        try {
+            mensaje = pagodao.agregarPago(conexion, pago, factura, valorFactura);
+            //conexion.rollback();
+        } catch (Exception e) {
+            mensaje = mensaje + " " + e.getMessage();
+        } finally {
+            try {
+                if (conexion != null) {
+                conexion.close();
+            }
+            } catch (Exception e) {
+                e.printStackTrace();
+                mensaje = mensaje + " " + e.getMessage();
+            }
+        }
+        return mensaje;
+    }
+
+    public String eliminarPago(Integer pago) {
+                Connection conexion = Base.conectar();
+                
+        try {
+            mensaje = pagodao.eliminarPago(conexion, pago);
+            //conexion.rollback();
+        } catch (Exception e) {
+            mensaje = mensaje + " " + e.getMessage();
+        } finally {
+            try {
+                if (conexion != null) {
+                conexion.close();
+            }
+            } catch (Exception e) {
+                e.printStackTrace();
+                mensaje = mensaje + " " + e.getMessage();
+            }
+        }
+        return mensaje;
     }
 }

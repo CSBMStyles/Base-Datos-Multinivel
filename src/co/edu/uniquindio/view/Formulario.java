@@ -11,6 +11,7 @@ import co.edu.uniquindio.bo.PagoControlador;
 import co.edu.uniquindio.bo.ProductoControlador;
 import co.edu.uniquindio.entiti.DetalleFactura;
 import co.edu.uniquindio.entiti.Factura;
+import co.edu.uniquindio.entiti.Pago;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -169,8 +170,8 @@ public class Formulario extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/uniquindio/view/Vibrance.PNG"))); // NOI18N
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, 390, 500));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/co/edu/uniquindio/view/Vibbrace.gif"))); // NOI18N
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 490, 530));
 
         jTabbedPane1.addTab("Inicio", jPanel3);
 
@@ -621,6 +622,11 @@ public class Formulario extends javax.swing.JFrame {
 
         btnRealizarPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         btnRealizarPago.setText("Realizar Pago");
+        btnRealizarPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRealizarPagoActionPerformed(evt);
+            }
+        });
         jPanel7.add(btnRealizarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, -1, -1));
 
         btnLimpiarPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
@@ -678,6 +684,11 @@ public class Formulario extends javax.swing.JFrame {
 
         btnEliminarPago.setFont(new java.awt.Font("Yu Gothic UI", 0, 15)); // NOI18N
         btnEliminarPago.setText("Eliminar");
+        btnEliminarPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarPagoActionPerformed(evt);
+            }
+        });
         jPanel7.add(btnEliminarPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 480, -1, -1));
 
         jTabbedPane1.addTab("Pago", jPanel7);
@@ -996,6 +1007,10 @@ public class Formulario extends javax.swing.JFrame {
         } else {
             DetalleFactura det = new DetalleFactura();
              
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el detalle de la venta?");
+            
+            if (confirmacion == JOptionPane.YES_OPTION) {
+            
             String mensaje = detbo.eliminarDetalle(Integer.parseInt(txtIdAsignarProducto.getText()), Integer.parseInt(txtFacturaAsignarProducto.getText()));
 
             JOptionPane.showMessageDialog(null, mensaje);
@@ -1010,6 +1025,7 @@ public class Formulario extends javax.swing.JFrame {
                 listarProductosAsignar();
             } else {
                 probo.buscarProducto(Integer.parseInt(txtBuscarAsignarProducto.getText()), tbProductoAsignarProducto);
+            }
             }
          }
     }//GEN-LAST:event_btnBorrarAsignarProductoActionPerformed
@@ -1063,6 +1079,57 @@ public class Formulario extends javax.swing.JFrame {
         pagobo.buscarPago(Integer.parseInt(txtClientePago.getText()), tbPago);
        }
     }//GEN-LAST:event_btnBuscarPagoActionPerformed
+
+    private void btnRealizarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarPagoActionPerformed
+        if (txtIdPago.getText().isEmpty() || txtMontoPago.getText().isEmpty() || txtClientePago.getText().isEmpty() || txtFormaPago.getText().isEmpty() || txtFacturaPago.getText().isEmpty() || txtValorFacturaPago.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Llene los datos");
+        } else {
+            Pago pag = new Pago();
+            
+            pag.setId(Integer.parseInt(txtIdPago.getText()));
+            pag.setMonto(Double.parseDouble(txtMontoPago.getText()));
+            pag.setClienteCedula(Integer.parseInt(txtClientePago.getText()));
+            pag.setFormaPago(Integer.parseInt(txtFormaPago.getText()));
+            
+            String mensaje = pagobo.agregarPago(pag, Integer.parseInt(txtFacturaPago.getText()), Double.parseDouble(txtValorFacturaPago.getText()));
+
+            JOptionPane.showMessageDialog(null, mensaje);
+            
+            pagobo.buscarPago(Integer.parseInt(txtClientePago.getText()), tbPago);
+            
+            txtPagoFactura.setText(txtIdPago.getText());
+            rdActivoFactura.setSelected(true);
+        }
+        
+    }//GEN-LAST:event_btnRealizarPagoActionPerformed
+
+    private void btnEliminarPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPagoActionPerformed
+        if (txtIdPago.getText().isEmpty() || txtMontoPago.getText().isEmpty() || txtClientePago.getText().isEmpty() || txtFormaPago.getText().isEmpty() || txtFacturaPago.getText().isEmpty() || txtValorFacturaPago.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Llene los datos");
+        } else {
+             
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el pago?");
+            
+            if (confirmacion == JOptionPane.YES_OPTION) {
+            
+            String mensaje = pagobo.eliminarPago(Integer.parseInt(txtIdPago.getText()));
+
+            JOptionPane.showMessageDialog(null, mensaje);
+
+        encbo.buscarFactura(Integer.parseInt(txtClientePago.getText()), tbFacturaPago);
+        pagobo.buscarPago(Integer.parseInt(txtClientePago.getText()), tbPago);
+        
+        txtPagoFactura.setText("");
+        rdInactivoFactura.setSelected(true);
+        
+                txtIdPago.setText("");
+        txtMontoPago.setText("");
+        txtClientePago.setText("");
+        txtFormaPago.setText("");
+        txtCambioPago.setText("");
+            }
+         }
+    }//GEN-LAST:event_btnEliminarPagoActionPerformed
 
     /**
      * @param args the command line arguments

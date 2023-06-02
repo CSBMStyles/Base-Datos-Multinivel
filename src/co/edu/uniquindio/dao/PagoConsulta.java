@@ -6,12 +6,15 @@
 package co.edu.uniquindio.dao;
 
 import co.edu.uniquindio.entiti.Factura;
+import co.edu.uniquindio.entiti.Pago;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -213,5 +216,55 @@ public class PagoConsulta {
                 e.printStackTrace();
             }
         }
+    }
+
+    public String agregarPago(Connection conn, Pago pago, Integer factura, Double valorFactura) {
+        PreparedStatement stmt = null;
+
+        String sql = "{ ? = call PAGAR(?, ?, ?, ?, ?) }";
+
+        try {
+            CallableStatement call = conn.prepareCall(sql);
+            call.registerOutParameter(1, Types.NUMERIC);
+            call.setInt(2, pago.getId()); 
+            call.setInt(3, pago.getClienteCedula());   
+            call.setDouble(4, valorFactura); 
+            call.setDouble(5, pago.getFormaPago());  
+            call.setDouble(6, pago.getMonto());  
+            
+            call.execute();
+
+            Integer idPago = call.getInt(1);
+
+            System.out.println("Subtotal: " + idPago);
+            mensaje = "Guardado correctamente";
+
+            call.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensaje = "No se pudo guardar: " + e;
+        }
+        return mensaje;
+    }
+
+    public String eliminarPago(Connection conn, Integer pago) {
+       PreparedStatement stmt = null;
+
+        String sql = "delete from PAGO where ID = ?";
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, pago);
+
+            mensaje = "Eliminado correctamente";
+
+            stmt.execute();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensaje = "No se pudo eliminar: " + e;
+        }
+
+        return mensaje;
     }
 }
